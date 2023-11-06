@@ -1,6 +1,6 @@
 title: "ISMB.OSCA"
 
-url: https://bioconductor.github.io/ISMB.OSCA
+url: https://drighelli.github.io/BBCC.OSCA
 
 template:
   params:
@@ -28,6 +28,6 @@ navbar:
 
   right:
    - icon: fa-github
-     href: https://github.com/Bioconductor/ISMB.OSCA
+     href: https://github.com/drighelli/BBCC.OSCA
      
 
