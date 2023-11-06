@@ -1,6 +1,6 @@
 Package: BBCC.OSCA
 Title: Orchestrating Large-Scale Single-Cell Analysis with Bioconductor
-Version: 0.99.13
+Version: 0.99.02
 Authors@R: 
     c(person("Annamaria", "Carissimo", role = "aut", email="annamaria.carissimo@cnr.it"),
     person("Francesco", "Cecere", role = "ctb",
