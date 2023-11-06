@@ -1,4 +1,4 @@
-title: "ISMB.OSCA"
+title: "BBCC.OSCA"
 
 url: https://drighelli.github.io/BBCC.OSCA
 
@@ -20,10 +20,6 @@ navbar:
         href: articles/cell_type_annotation.html
       - text: Multi-sample analyses
         href: articles/multi_sample.html
-      - text: Working with large data
-        href: articles/large_data.html  
-      - text: Accessing data from the Human Cell Atlas
-        href: articles/hca.html
 
 
   right:
