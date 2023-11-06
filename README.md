@@ -1,13 +1,12 @@
-# ISMB 2023: Orchestrating Large-Scale Single-Cell Analysis with Bioconductor
+# BBCC 2023: Orchestrating Large-Scale Single-Cell Analysis with Bioconductor
 
-[Tutorial homepage](https://bioconductor.github.io/ISMB.OSCA/)
+[Tutorial homepage](https://drighelli.github.io/BBCC.OSCA/)
 
 ## Speakers
 
-* Dario Righelli, University of Padova, Italy
-* Marcel Ramos, CUNY Graduate School of Public Health and Health Policy; and Roswell Park Comprehensive Cancer Center, United States
-* Ludwig Geistlinger, Harvard Medical School, United States
-* Davide Risso, University of Padova, Italy
+* Annamaria Carissimo, Institute for Applied Mathematics "M. Picone", IAC-CNR, Naples, Italy
+* Dario Righelli, Department of Statistical Sciences, University of Padova, Italy
+* Francesco Cecere, Department of Environmental Biological and Pharmaceutical Sciences and Technologies (DiSTABiF), Università degli Studi della Campania “Luigi Vanvitelli”, Caserta, Italy
 
 ## Description
 
@@ -38,12 +37,10 @@ large-data resources to analyze datasets comprising millions of cells.
 
 In particular, participants will learn:
 
-* How to access publicly available data, such as those from the Human Cell Atlas.
 * How to perform data exploration, normalization, and dimensionality reduction.
 * How to identify cell types/states and marker genes.
-* How to correct for batch effects and integrate multiple samples.
-* How to perform differential expression and differential abundance analysis between conditions.
-* How to work with large out-of-memory datasets.
+* How to correct for batch effects and integrate multiple samples. (TBD)
+* How to perform differential expression and differential abundance analysis between conditions. (TBD)
 
 ## Time outline
 
@@ -54,28 +51,25 @@ In particular, participants will learn:
 | Exploratory Data Analysis and Quality Control (EDA/QC)          | 10:00-10:45  |
 | Coffee break                                                    | 10:45-11:00  |
 | Clustering and cell type annotation                             | 11:00-12:00  |
-| Multi-sample analyses                                           | 12:00-13:00  |
+| Multi-sample analyses (TBD)                                     | 12:00-13:00  |
 | Lunch break                                                     | 13:00-14:00  |
-| Working with large data                                         | 14:00-15:00  |
-| Accessing the Human Cell Atlas (HCA) Data from R/Bioconductor   | 15:00-16:00  |
-| Coffee break                                                    | 16:00-16:15  |
-| Case study: from data import to DE and DA                       | 16:15-17:00  |
-| Case study: discussion                                          | 17:00-18:00  |
+| Case Study (TBD)                                                | 14:00-16:00  |
+| Discussion (TBD)                                                | 16:00-17:00  |
 
 ## Docker container
 
-To run this tutorial in a
-[Docker container](ghcr.io/bioconductor/ismb.osca:latest),
+To locally run this tutorial in a
+[Docker container](ghcr.io/drighelli/bbcc.osca:latest),
 pull the Docker image via
 
 ```
-docker pull ghcr.io/bioconductor/ismb.osca:latest
+docker pull ghcr.io/drighelli/bbcc.osca:latest
 ``` 
 
 and then run the image via
 
 ```
-docker run -e PASSWORD=bioc -p 8787:8787 ghcr.io/bioconductor/ismb.osca
+docker run -e PASSWORD=bioc -p 8787:8787 ghcr.io/drighelli/bbcc.osca
 ```
 
 Once running, navigate to http://localhost:8787/ in your browser and login with
@@ -92,7 +86,7 @@ if (!require("BiocManager", quietly = TRUE))
 if (!require("remotes", quietly = TRUE))
     install.packages("remotes")
 
-BiocManager::install("Bioconductor/ISMB.OSCA",
+BiocManager::install("Bioconductor/BBCC.OSCA",
                      dependencies = TRUE,
                      build_vignettes = TRUE)
 ```
