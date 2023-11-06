@@ -2,12 +2,10 @@ Package: BBCC.OSCA
 Title: Orchestrating Large-Scale Single-Cell Analysis with Bioconductor
 Version: 0.99.13
 Authors@R: 
-    c(person("Davide", "Risso", role = "aut", email = "davide.risso@unipd.it"),
-    person("Ludwig", "Geistlinger", role = c("aut", "cre"),
-           email = "ludwig_geistlinger@hms.harvard.edu"),
-    person("Marcel", "Ramos", role = "ctb",
-           email = "marcel.ramos@roswellpark.org"),
-    person("Dario", "Righelli", role = "ctb", email = "drighelli@gmail.com")) 
+    c(person("Annamaria", "Carissimo", role = "aut", email="annamaria.carissimo@cnr.it"),
+    person("Francesco", "Cecere", role = "ctb",
+           email = "francesco.cecere@unicampania.it"),
+    person("Dario", "Righelli", role = c("cre", "ctb"), email="dario.righelli@gmail.com"))
 Description: This tutorial aims to provide a solid foundation in using
     Bioconductor tools for single-cell RNA-seq analysis by walking through
     various steps of typical workflows using example datasets. 
