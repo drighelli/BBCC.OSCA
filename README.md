@@ -51,10 +51,8 @@ In particular, participants will learn:
 | Exploratory Data Analysis and Quality Control (EDA/QC)          | 10:00-10:45  |
 | Coffee break                                                    | 10:45-11:00  |
 | Clustering and cell type annotation                             | 11:00-12:00  |
-| Multi-sample analyses (TBD)                                     | 12:00-13:00  |
-| Lunch break                                                     | 13:00-14:00  |
-| Case Study (TBD)                                                | 14:00-16:00  |
-| Discussion (TBD)                                                | 16:00-17:00  |
+| Multi-sample analyses (TBD)                                     | 12:00-13:30  |
+| Lunch                                                           | 13:30        |
 
 ## Docker container
 

@@ -22,8 +22,6 @@ Imports:
     DropletUtils,
     EnsDb.Mmusculus.v79,
     MouseGastrulationData,
-    Seurat,
-    SeuratData,
     SingleR,
     TENxBrainData,
     batchelor,
@@ -47,9 +45,6 @@ Suggests:
     rmarkdown,
     stringr,
     pkgdown
-Remotes:
-    lgeistlinger/SeuratData,
-    stemangiola/CuratedAtlasQueryR
 URL:
     https://drighelli.github.io/BBCC.OSCA/,
     ghcr.io/drighelli/ismb.osca
