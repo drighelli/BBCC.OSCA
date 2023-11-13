@@ -95,7 +95,7 @@ plotReducedDim(sce, "pca.corrected.E8.5", colour_by = "celltype.mapped")
 
 # Session Info
 
-```{r sessionInfo}
+```{r sessionInfo, tidy=TRUE}
 sessionInfo()
 ```
 

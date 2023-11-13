@@ -394,7 +394,7 @@ Addionally, the choice of \tau can be guided by other external experimental data
 
 # Session Info
 
-```{r, tidy=TRUE}
+```{r sessioninfo, tidy=TRUE}
 sessionInfo()
 ```
 

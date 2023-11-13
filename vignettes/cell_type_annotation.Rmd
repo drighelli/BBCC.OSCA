@@ -391,7 +391,7 @@ estimate of the distribution.
 
 # Session Info
 
-```{r sessionInfo}
+```{r sessionInfo, tidy=TRUE}
 sessionInfo()
 ```
 
