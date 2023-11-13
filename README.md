@@ -31,16 +31,14 @@ approaching single-cell data.
 ## Learning objectives
 
 Attendees will learn how to analyze multi-condition single-cell RNA-seq from
-raw data to statistical analyses and result interpretation. Students will learn
-where the critical steps and methods choices are and will be able to leverage
-large-data resources to analyze datasets comprising millions of cells.
+raw data to statistical analyses and result interpretation.
 
 In particular, participants will learn:
 
 * How to perform data exploration, normalization, and dimensionality reduction.
 * How to identify cell types/states and marker genes.
-* How to correct for batch effects and integrate multiple samples. (TBD)
-* How to perform differential expression and differential abundance analysis between conditions. (TBD)
+* How to correct for batch effects and integrate multiple samples.
+* How to perform differential expression and differential abundance analysis between conditions.
 
 ## Time outline
 
@@ -51,7 +49,7 @@ In particular, participants will learn:
 | Exploratory Data Analysis and Quality Control (EDA/QC)          | 10:00-10:45  |
 | Coffee break                                                    | 10:45-11:00  |
 | Clustering and cell type annotation                             | 11:00-12:00  |
-| Multi-sample analyses (TBD)                                     | 12:00-13:30  |
+| Multi-sample analyses                                           | 12:00-13:30  |
 | Lunch                                                           | 13:30        |
 
 ## Docker container
