@@ -37,7 +37,8 @@ Imports:
     scDblFinder,
     zellkonverter,
     ggplot2,
-    edgeR
+    edgeR,
+    Matrix (==1.6-1)
 Suggests: 
     BiocStyle,
     dplyr,
