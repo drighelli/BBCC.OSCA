@@ -2,6 +2,7 @@
 
 [Tutorial homepage](https://drighelli.github.io/BBCC.OSCA/)
 
+
 ## Speakers
 
 * Annamaria Carissimo, Institute for Applied Mathematics "M. Picone", IAC-CNR, Naples, Italy
