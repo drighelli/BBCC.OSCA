@@ -113,8 +113,20 @@ will use for the tutorial:</p>
 injected cells in one biological replicate. We download the “raw” data
 that contains all the droplets for which we have sequenced reads.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/MarioniLab/MouseGastrulationData" class="external-link">MouseGastrulationData</a></span><span class="op">)</span></span>
-<span><span class="va">sce</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/MouseGastrulationData/man/WTChimeraData.html" class="external-link">WTChimeraData</a></span><span class="op">(</span>samples<span class="op">=</span><span class="fl">5</span>, type<span class="op">=</span><span class="st">"raw"</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/MarioniLab/MouseGastrulationData" class="external-link">MouseGastrulationData</a></span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## Warning: package 'MouseGastrulationData' was built under R version 4.3.2</span></span></code></pre>
+<pre><code><span><span class="co">## Warning: package 'SingleCellExperiment' was built under R version 4.3.2</span></span></code></pre>
+<pre><code><span><span class="co">## Warning: package 'SummarizedExperiment' was built under R version 4.3.2</span></span></code></pre>
+<pre><code><span><span class="co">## Warning: package 'MatrixGenerics' was built under R version 4.3.2</span></span></code></pre>
+<pre><code><span><span class="co">## Warning: package 'GenomicRanges' was built under R version 4.3.2</span></span></code></pre>
+<pre><code><span><span class="co">## Warning: package 'BiocGenerics' was built under R version 4.3.2</span></span></code></pre>
+<pre><code><span><span class="co">## Warning: package 'S4Vectors' was built under R version 4.3.2</span></span></code></pre>
+<pre><code><span><span class="co">## Warning: package 'IRanges' was built under R version 4.3.2</span></span></code></pre>
+<pre><code><span><span class="co">## Warning: package 'GenomeInfoDb' was built under R version 4.3.2</span></span></code></pre>
+<pre><code><span><span class="co">## Warning: package 'Biobase' was built under R version 4.3.2</span></span></code></pre>
+<pre><code><span><span class="co">## Warning: package 'SpatialExperiment' was built under R version 4.3.2</span></span></code></pre>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">sce</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/MouseGastrulationData/man/WTChimeraData.html" class="external-link">WTChimeraData</a></span><span class="op">(</span>samples<span class="op">=</span><span class="fl">5</span>, type<span class="op">=</span><span class="st">"raw"</span><span class="op">)</span></span>
 <span><span class="va">sce</span> <span class="op">&lt;-</span> <span class="va">sce</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span>
 <span><span class="va">sce</span></span></code></pre></div>
 <pre><code><span><span class="co">## class: SingleCellExperiment </span></span>
@@ -138,9 +150,11 @@ that contains all the droplets for which we have sequenced reads.</p>
 while we can see that we have data for more than 500,000 droplets. It is
 likely that most of these droplets are empty and are capturing only
 ambient or background RNA.</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">DropletUtils</span><span class="op">)</span></span>
-<span><span class="va">bcrank</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/DropletUtils/man/barcodeRanks.html" class="external-link">barcodeRanks</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/dge.html" class="external-link">counts</a></span><span class="op">(</span><span class="va">sce</span><span class="op">)</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">DropletUtils</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## Warning: package 'DropletUtils' was built under R version 4.3.2</span></span></code></pre>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">bcrank</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/DropletUtils/man/barcodeRanks.html" class="external-link">barcodeRanks</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/dge.html" class="external-link">counts</a></span><span class="op">(</span><span class="va">sce</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Only showing unique points for plotting speed.</span></span>
 <span><span class="va">uniq</span> <span class="op">&lt;-</span> <span class="op">!</span><span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/duplicated.html" class="external-link">duplicated</a></span><span class="op">(</span><span class="va">bcrank</span><span class="op">$</span><span class="va">rank</span><span class="op">)</span></span>
@@ -148,7 +162,7 @@ ambient or background RNA.</p>
 <span>    xlab<span class="op">=</span><span class="st">"Rank"</span>, ylab<span class="op">=</span><span class="st">"Total UMI count"</span>, cex.lab<span class="op">=</span><span class="fl">1.2</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Warning in xy.coords(x, y, xlabel, ylabel, log): 1 y value &lt;= 0 omitted from</span></span>
 <span><span class="co">## logarithmic plot</span></span></code></pre>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/abline.html" class="external-link">abline</a></span><span class="op">(</span>h<span class="op">=</span><span class="fu">metadata</span><span class="op">(</span><span class="va">bcrank</span><span class="op">)</span><span class="op">$</span><span class="va">inflection</span>, col<span class="op">=</span><span class="st">"darkgreen"</span>, lty<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/abline.html" class="external-link">abline</a></span><span class="op">(</span>h<span class="op">=</span><span class="fu">metadata</span><span class="op">(</span><span class="va">bcrank</span><span class="op">)</span><span class="op">$</span><span class="va">knee</span>, col<span class="op">=</span><span class="st">"dodgerblue"</span>, lty<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span>
 <span></span>
@@ -174,7 +188,7 @@ would have similar total counts.</p>
 <p>We call cells at a false discovery rate (FDR) of 0.1%, meaning that
 no more than 0.1% of our called barcodes should be empty droplets on
 average.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># emptyDrops performs Monte Carlo simulations to compute p-values,</span></span>
 <span><span class="co"># so we need to set the seed to obtain reproducible results.</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">100</span><span class="op">)</span></span>
@@ -185,7 +199,7 @@ average.</p>
 <span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">e.out</span><span class="op">$</span><span class="va">FDR</span> <span class="op">&lt;=</span> <span class="fl">0.001</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##    Mode   FALSE    TRUE    NA's </span></span>
 <span><span class="co">## logical    6184    3131  513239</span></span></code></pre>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">sce</span> <span class="op">&lt;-</span> <span class="va">sce</span><span class="op">[</span>,<span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/which.html" class="external-link">which</a></span><span class="op">(</span><span class="va">e.out</span><span class="op">$</span><span class="va">FDR</span> <span class="op">&lt;=</span> <span class="fl">0.001</span><span class="op">)</span><span class="op">]</span></span>
 <span><span class="va">sce</span></span></code></pre></div>
 <pre><code><span><span class="co">## class: SingleCellExperiment </span></span>
@@ -250,29 +264,35 @@ stripped.</p>
 <code>EnsDb</code> mouse package available in Bioconductor, but a more
 updated version of Ensembl can be used through the
 <code>AnnotationHub</code> or <code>biomaRt</code> packages.</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">EnsDb.Mmusculus.v79</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Loading required package: ensembldb</span></span></code></pre>
+<pre><code><span><span class="co">## Warning: package 'ensembldb' was built under R version 4.3.2</span></span></code></pre>
 <pre><code><span><span class="co">## Loading required package: GenomicFeatures</span></span></code></pre>
+<pre><code><span><span class="co">## Warning: package 'GenomicFeatures' was built under R version 4.3.2</span></span></code></pre>
 <pre><code><span><span class="co">## Loading required package: AnnotationDbi</span></span></code></pre>
+<pre><code><span><span class="co">## Warning: package 'AnnotationDbi' was built under R version 4.3.2</span></span></code></pre>
 <pre><code><span><span class="co">## Loading required package: AnnotationFilter</span></span></code></pre>
+<pre><code><span><span class="co">## Warning: package 'AnnotationFilter' was built under R version 4.3.2</span></span></code></pre>
 <pre><code><span><span class="co">## </span></span>
 <span><span class="co">## Attaching package: 'ensembldb'</span></span></code></pre>
 <pre><code><span><span class="co">## The following object is masked from 'package:stats':</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">##     filter</span></span></code></pre>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">chr.loc</span> <span class="op">&lt;-</span> <span class="fu">mapIds</span><span class="op">(</span><span class="va">EnsDb.Mmusculus.v79</span>, keys<span class="op">=</span><span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/row_colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">sce</span><span class="op">)</span>,</span>
 <span>    keytype<span class="op">=</span><span class="st">"GENEID"</span>, column<span class="op">=</span><span class="st">"SEQNAME"</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Warning: Unable to map 2918 of 29453 requested IDs.</span></span></code></pre>
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">is.mito</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/which.html" class="external-link">which</a></span><span class="op">(</span><span class="va">chr.loc</span><span class="op">==</span><span class="st">"MT"</span><span class="op">)</span></span></code></pre></div>
 <p>We can use the <code>scuttle</code> package to compute a set of
 quality-control metrics, specifying that we want to use the
 mitochondrial genes as a special set of features.</p>
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">scuttle</span><span class="op">)</span></span>
-<span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/scuttle/man/perCellQCMetrics.html" class="external-link">perCellQCMetrics</a></span><span class="op">(</span><span class="va">sce</span>, subsets<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>Mito<span class="op">=</span><span class="va">is.mito</span><span class="op">)</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">scuttle</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## Warning: package 'scuttle' was built under R version 4.3.2</span></span></code></pre>
+<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/scuttle/man/perCellQCMetrics.html" class="external-link">perCellQCMetrics</a></span><span class="op">(</span><span class="va">sce</span>, subsets<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>Mito<span class="op">=</span><span class="va">is.mito</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># include them in the object</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html" class="external-link">colData</a></span><span class="op">(</span><span class="va">sce</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html" class="external-link">colData</a></span><span class="op">(</span><span class="va">sce</span><span class="op">)</span>, <span class="va">df</span><span class="op">)</span></span>
@@ -307,23 +327,23 @@ mitochondrial genes as a special set of features.</p>
 <p>Now that we have computed the metrics, we have to decide on
 thresholds to define high- and low-quality samples. We could check how
 many cells are above/below a certain fixed threshold. For instance,</p>
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/table.html" class="external-link">table</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">sum</span> <span class="op">&lt;</span> <span class="fl">10000</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## </span></span>
 <span><span class="co">## FALSE  TRUE </span></span>
 <span><span class="co">##  2477   654</span></span></code></pre>
-<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/table.html" class="external-link">table</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">subsets_Mito_percent</span> <span class="op">&gt;</span> <span class="fl">10</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## </span></span>
 <span><span class="co">## FALSE  TRUE </span></span>
 <span><span class="co">##  2761   370</span></span></code></pre>
 <p>or we could look at the distribution of such metrics and use a data
 adaptive threshold.</p>
-<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb46"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">detected</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. </span></span>
 <span><span class="co">##      98    4126    5168    4455    5670    7908</span></span></code></pre>
-<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb48"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">subsets_Mito_percent</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. </span></span>
 <span><span class="co">##   0.000   1.155   1.608   5.079   2.182  66.968</span></span></code></pre>
@@ -332,18 +352,18 @@ By default, we consider a value to be an outlier if it is more than 3
 median absolute deviations (MADs) from the median in the “problematic”
 direction. This is loosely motivated by the fact that such a filter will
 retain 99% of non-outlier values that follow a normal distribution.</p>
-<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb50"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">reasons</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/scuttle/man/perCellQCFilters.html" class="external-link">perCellQCFilters</a></span><span class="op">(</span><span class="va">df</span>, sub.fields<span class="op">=</span><span class="st">"subsets_Mito_percent"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/colSums.html" class="external-link">colSums</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">as.matrix</a></span><span class="op">(</span><span class="va">reasons</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##              low_lib_size            low_n_features high_subsets_Mito_percent </span></span>
 <span><span class="co">##                       601                       654                       484 </span></span>
 <span><span class="co">##                   discard </span></span>
 <span><span class="co">##                       694</span></span></code></pre>
-<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb52"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">reasons</span><span class="op">$</span><span class="va">discard</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##    Mode   FALSE    TRUE </span></span>
 <span><span class="co">## logical    2437     694</span></span></code></pre>
-<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb54"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># include in object</span></span>
 <span><span class="va">sce</span><span class="op">$</span><span class="va">discard</span> <span class="op">&lt;-</span> <span class="va">reasons</span><span class="op">$</span><span class="va">discard</span></span></code></pre></div>
 </div>
@@ -356,16 +376,17 @@ problems with the procedure. In particular, we expect to have few
 outliers and with a marked difference from “regular” cells (e.g., a
 bimodal distribution or a long tail). Moreover, if there are too many
 discarded cells, further exploration might be needed.</p>
-<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb55"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="http://bioconductor.org/packages/scater/" class="external-link">scater</a></span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## Warning: package 'scater' was built under R version 4.3.2</span></span></code></pre>
 <pre><code><span><span class="co">## Loading required package: ggplot2</span></span></code></pre>
-<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb58"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/scater/man/plotColData.html" class="external-link">plotColData</a></span><span class="op">(</span><span class="va">sce</span>, y <span class="op">=</span> <span class="st">"sum"</span>, colour_by <span class="op">=</span> <span class="st">"discard"</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ggtitle</a></span><span class="op">(</span><span class="st">"Total count"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="eda_qc_files/figure-html/unnamed-chunk-9-1.png" width="700"></p>
-<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb59"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/scater/man/plotColData.html" class="external-link">plotColData</a></span><span class="op">(</span><span class="va">sce</span>, y <span class="op">=</span> <span class="st">"detected"</span>, colour_by <span class="op">=</span> <span class="st">"discard"</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ggtitle</a></span><span class="op">(</span><span class="st">"Detected features"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="eda_qc_files/figure-html/unnamed-chunk-9-2.png" width="700"></p>
-<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb60"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/scater/man/plotColData.html" class="external-link">plotColData</a></span><span class="op">(</span><span class="va">sce</span>, y <span class="op">=</span> <span class="st">"subsets_Mito_percent"</span>, colour_by <span class="op">=</span> <span class="st">"discard"</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ggtitle</a></span><span class="op">(</span><span class="st">"Mito percent"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="eda_qc_files/figure-html/unnamed-chunk-9-3.png" width="700"></p>
 <p>While the univariate distribution of QC metrics can give some insight
@@ -374,7 +395,7 @@ distribution of QC metrics is useful, e.g., to confirm that there are no
 cells with both large total counts and large mitochondrial counts, to
 ensure that we are not inadvertently removing high-quality cells that
 happen to be highly metabolically active.</p>
-<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb61"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/scater/man/plotColData.html" class="external-link">plotColData</a></span><span class="op">(</span><span class="va">sce</span>, x<span class="op">=</span><span class="st">"sum"</span>, y<span class="op">=</span><span class="st">"subsets_Mito_percent"</span>, colour_by<span class="op">=</span><span class="st">"discard"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="eda_qc_files/figure-html/unnamed-chunk-10-1.png" width="700"></p>
 <p>It could also be a good idea to perform a differential expression
@@ -384,7 +405,7 @@ removing an unusual cell population rather than low-quality libraries
 1.5 of OSCA advanced</a>).</p>
 <p>Once we are happy with the results, we can discard the low-quality
 cells by subsetting the original object.</p>
-<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb62"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">sce</span> <span class="op">&lt;-</span> <span class="va">sce</span><span class="op">[</span>,<span class="op">!</span><span class="va">sce</span><span class="op">$</span><span class="va">discard</span><span class="op">]</span></span>
 <span><span class="va">sce</span></span></code></pre></div>
 <pre><code><span><span class="co">## class: SingleCellExperiment </span></span>
@@ -433,12 +454,12 @@ proportional to its library size where the proportionality constant is
 defined such that the mean size factor across all cells is equal to 1.
 This ensures that the normalized expression values are on the same scale
 as the original counts.</p>
-<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb64"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">lib.sf</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/scuttle/man/librarySizeFactors.html" class="external-link">librarySizeFactors</a></span><span class="op">(</span><span class="va">sce</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">lib.sf</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. </span></span>
 <span><span class="co">##  0.2730  0.7879  0.9600  1.0000  1.1730  2.5598</span></span></code></pre>
-<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb66"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/hist.html" class="external-link">hist</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log10</a></span><span class="op">(</span><span class="va">lib.sf</span><span class="op">)</span>, xlab<span class="op">=</span><span class="st">"Log10[Size factor]"</span>, col<span class="op">=</span><span class="st">'grey80'</span>, breaks <span class="op">=</span> <span class="fl">30</span><span class="op">)</span></span></code></pre></div>
 <p><img src="eda_qc_files/figure-html/unnamed-chunk-12-1.png" width="700"></p>
 <div class="section level3">
@@ -466,20 +487,22 @@ populations.</p>
 other methods have been proposed and lead to similar performance (see
 <span class="citation">Borella et al. (2022)</span> for a comparative
 review).</p>
-<div class="sourceCode" id="cb46"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">scran</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">100</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb67"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">scran</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## Warning: package 'scran' was built under R version 4.3.2</span></span></code></pre>
+<div class="sourceCode" id="cb69"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">100</span><span class="op">)</span></span>
 <span><span class="va">clust</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/scran/man/quickCluster.html" class="external-link">quickCluster</a></span><span class="op">(</span><span class="va">sce</span><span class="op">)</span> </span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/table.html" class="external-link">table</a></span><span class="op">(</span><span class="va">clust</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## clust</span></span>
 <span><span class="co">##   1   2   3   4   5   6   7   8   9  10  11  12  13 </span></span>
 <span><span class="co">## 273 159 250 122 187 201 154 252 152 169 199 215 104</span></span></code></pre>
-<div class="sourceCode" id="cb48"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb71"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">deconv.sf</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/scran/man/computeSumFactors.html" class="external-link">calculateSumFactors</a></span><span class="op">(</span><span class="va">sce</span>, cluster<span class="op">=</span><span class="va">clust</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">deconv.sf</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. </span></span>
 <span><span class="co">##  0.3100  0.8028  0.9626  1.0000  1.1736  2.7858</span></span></code></pre>
-<div class="sourceCode" id="cb50"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb73"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">lib.sf</span>, <span class="va">deconv.sf</span>, xlab<span class="op">=</span><span class="st">"Library size factor"</span>,</span>
 <span>    ylab<span class="op">=</span><span class="st">"Deconvolution size factor"</span>, log<span class="op">=</span><span class="st">'xy'</span>, pch<span class="op">=</span><span class="fl">16</span>,</span>
 <span>    col<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/integer.html" class="external-link">as.integer</a></span><span class="op">(</span><span class="va">clust</span><span class="op">)</span><span class="op">)</span></span>
@@ -491,7 +514,7 @@ the appropriate size factor for that cell. Since we are typically going
 to work with log-transformed counts, the function
 <code>logNormCounts</code> also log-transforms the normalized values,
 creating a new assay called <code>logcounts</code>.</p>
-<div class="sourceCode" id="cb51"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb74"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/dge.html" class="external-link">sizeFactors</a></span><span class="op">(</span><span class="va">sce</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">deconv.sf</span></span>
 <span><span class="va">sce</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/scuttle/man/logNormCounts.html" class="external-link">logNormCounts</a></span><span class="op">(</span><span class="va">sce</span><span class="op">)</span></span>
 <span><span class="va">sce</span></span></code></pre></div>
@@ -535,7 +558,7 @@ cases, which means that the total variance of a gene is driven more by
 its abundance than its underlying biological heterogeneity. To account
 for this, the <code>modelGeneVar</code> function fits a trend to the
 variance with respect to abundance across all genes.</p>
-<div class="sourceCode" id="cb53"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb76"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">dec.sce</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/scran/man/modelGeneVar.html" class="external-link">modelGeneVar</a></span><span class="op">(</span><span class="va">sce</span><span class="op">)</span></span>
 <span><span class="va">fit.sce</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/S4Vectors/man/Annotated-class.html" class="external-link">metadata</a></span><span class="op">(</span><span class="va">dec.sce</span><span class="op">)</span></span>
 <span></span>
@@ -560,7 +583,7 @@ instance, we may expect that only about 10% of genes to be
 differentially expressed across our cell populations and hence select
 10% of genes as higly variable (e.g., by setting
 <code>prop=0.1</code>).</p>
-<div class="sourceCode" id="cb54"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb77"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">hvg.sce.var</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/scran/man/getTopHVGs.html" class="external-link">getTopHVGs</a></span><span class="op">(</span><span class="va">dec.sce</span>, n<span class="op">=</span><span class="fl">1000</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">hvg.sce.var</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## [1] "ENSMUSG00000055609" "ENSMUSG00000052217" "ENSMUSG00000069919"</span></span>
@@ -603,7 +626,7 @@ metrics and PCs).</p>
 <p>One simple way to maximize our chance of capturing biological
 variation is by computing the PCs starting from the highly variable
 genes identified before.</p>
-<div class="sourceCode" id="cb56"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb79"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">sce</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/BiocSingular/man/runPCA.html" class="external-link">runPCA</a></span><span class="op">(</span><span class="va">sce</span>, subset_row<span class="op">=</span><span class="va">hvg.sce.var</span><span class="op">)</span></span>
 <span><span class="va">sce</span></span></code></pre></div>
 <pre><code><span><span class="co">## class: SingleCellExperiment </span></span>
@@ -621,17 +644,17 @@ genes identified before.</p>
 <span><span class="co">## altExpNames(0):</span></span></code></pre>
 <p>By default, <code>runPCA</code> computes the first 50 principal
 components. We can check how much original variability they explain.</p>
-<div class="sourceCode" id="cb58"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb81"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">percent.var</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/SingleCellExperiment/man/reducedDims.html" class="external-link">reducedDim</a></span><span class="op">(</span><span class="va">sce</span><span class="op">)</span>, <span class="st">"percentVar"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">percent.var</span>, log<span class="op">=</span><span class="st">"y"</span>, xlab<span class="op">=</span><span class="st">"PC"</span>, ylab<span class="op">=</span><span class="st">"Variance explained (%)"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="eda_qc_files/figure-html/unnamed-chunk-19-1.png" width="700"></p>
 <p>And we can of course visualize the first 2-3 components, perhaps
 color-coding each point by an interesting feature, in this case the
 total number of UMIs per cell.</p>
-<div class="sourceCode" id="cb59"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb82"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/plotPCA.html" class="external-link">plotPCA</a></span><span class="op">(</span><span class="va">sce</span>, colour_by<span class="op">=</span><span class="st">"sum"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="eda_qc_files/figure-html/unnamed-chunk-20-1.png" width="700"></p>
-<div class="sourceCode" id="cb60"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb83"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/scater/man/plotReducedDim.html" class="external-link">plotReducedDim</a></span><span class="op">(</span><span class="va">sce</span>, dimred<span class="op">=</span><span class="st">"PCA"</span>, ncomponents<span class="op">=</span><span class="fl">3</span><span class="op">)</span></span></code></pre></div>
 <p><img src="eda_qc_files/figure-html/unnamed-chunk-20-2.png" width="700"></p>
 </div>
@@ -645,12 +668,12 @@ and projection</em>) have gained much popularity in the literature.</p>
 <p>These methods attempt to find a low-dimensional representation of the
 data that preserves the distances between each point and its neighbors
 in the high-dimensional space.</p>
-<div class="sourceCode" id="cb61"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb84"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">100</span><span class="op">)</span></span>
 <span><span class="va">sce</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/scater/man/runTSNE.html" class="external-link">runTSNE</a></span><span class="op">(</span><span class="va">sce</span>, dimred<span class="op">=</span><span class="st">"PCA"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/scater/man/plot_reddim.html" class="external-link">plotTSNE</a></span><span class="op">(</span><span class="va">sce</span><span class="op">)</span></span></code></pre></div>
 <p><img src="eda_qc_files/figure-html/unnamed-chunk-21-1.png" width="700"></p>
-<div class="sourceCode" id="cb62"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb85"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">111</span><span class="op">)</span></span>
 <span><span class="va">sce</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/scater/man/runUMAP.html" class="external-link">runUMAP</a></span><span class="op">(</span><span class="va">sce</span>, dimred<span class="op">=</span><span class="st">"PCA"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/scater/man/plot_reddim.html" class="external-link">plotUMAP</a></span><span class="op">(</span><span class="va">sce</span><span class="op">)</span></span></code></pre></div>
@@ -667,7 +690,7 @@ relationships between distant clusters.</p>
 <p>Note that the <code>sce</code> object now includes all the computed
 dimensionality reduced representations of the data for ease of reusing
 and replotting without the need for recomputing.</p>
-<div class="sourceCode" id="cb63"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb86"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">sce</span></span></code></pre></div>
 <pre><code><span><span class="co">## class: SingleCellExperiment </span></span>
 <span><span class="co">## dim: 29453 2437 </span></span>
@@ -730,16 +753,18 @@ each cell.</li>
 very likely to be a doublet itself.</p>
 <p>This approach is implemented below, where we visualize the scores in
 a t-SNE plot.</p>
-<div class="sourceCode" id="cb65"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/plger/scDblFinder" class="external-link">scDblFinder</a></span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">100</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb88"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/plger/scDblFinder" class="external-link">scDblFinder</a></span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## Warning: package 'scDblFinder' was built under R version 4.3.2</span></span></code></pre>
+<div class="sourceCode" id="cb90"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">100</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">dbl.dens</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://plger.github.io/scDblFinder/reference/computeDoubletDensity.html" class="external-link">computeDoubletDensity</a></span><span class="op">(</span><span class="va">sce</span>, subset.row<span class="op">=</span><span class="va">hvg.sce.var</span>,</span>
 <span>                                  d<span class="op">=</span><span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/nrow.html" class="external-link">ncol</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/SingleCellExperiment/man/reducedDims.html" class="external-link">reducedDim</a></span><span class="op">(</span><span class="va">sce</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">dbl.dens</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##     Min.  1st Qu.   Median     Mean  3rd Qu.     Max. </span></span>
 <span><span class="co">## 0.000000 0.000000 0.000000 0.002014 0.000000 1.886238</span></span></code></pre>
-<div class="sourceCode" id="cb67"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb92"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">sce</span><span class="op">$</span><span class="va">DoubletScore</span> <span class="op">&lt;-</span> <span class="va">dbl.dens</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/scater/man/plot_reddim.html" class="external-link">plotTSNE</a></span><span class="op">(</span><span class="va">sce</span>, colour_by<span class="op">=</span><span class="st">"DoubletScore"</span><span class="op">)</span></span></code></pre></div>
@@ -747,26 +772,26 @@ a t-SNE plot.</p>
 <p>We can explicitly convert this into doublet calls by identifying
 large outliers for the score within each sample. Here we use the
 “griffiths” method to do so.</p>
-<div class="sourceCode" id="cb68"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb93"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">dbl.calls</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://plger.github.io/scDblFinder/reference/doubletThresholding.html" class="external-link">doubletThresholding</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>score<span class="op">=</span><span class="va">dbl.dens</span><span class="op">)</span>,</span>
 <span>                                 method<span class="op">=</span><span class="st">"griffiths"</span>, returnType<span class="op">=</span><span class="st">"call"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">dbl.calls</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## singlet doublet </span></span>
 <span><span class="co">##    2407      30</span></span></code></pre>
-<div class="sourceCode" id="cb70"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb95"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">sce</span><span class="op">$</span><span class="va">doublet</span> <span class="op">&lt;-</span> <span class="va">dbl.calls</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/scater/man/plotColData.html" class="external-link">plotColData</a></span><span class="op">(</span><span class="va">sce</span>, y<span class="op">=</span><span class="st">"DoubletScore"</span>, colour_by<span class="op">=</span><span class="st">"doublet"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="eda_qc_files/figure-html/unnamed-chunk-25-1.png" width="700"></p>
-<div class="sourceCode" id="cb71"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb96"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/scater/man/plot_reddim.html" class="external-link">plotTSNE</a></span><span class="op">(</span><span class="va">sce</span>, colour_by<span class="op">=</span><span class="st">"doublet"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="eda_qc_files/figure-html/unnamed-chunk-25-2.png" width="700"></p>
 <p>One way to determine whether a cell is in a real transient state or
 it is a doublet is to check the number of detected genes and total UMI
 counts.</p>
-<div class="sourceCode" id="cb72"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb97"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/scater/man/plotColData.html" class="external-link">plotColData</a></span><span class="op">(</span><span class="va">sce</span>, <span class="st">"detected"</span>, <span class="st">"sum"</span>, colour_by <span class="op">=</span> <span class="st">"DoubletScore"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="eda_qc_files/figure-html/unnamed-chunk-26-1.png" width="700"></p>
-<div class="sourceCode" id="cb73"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb98"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/scater/man/plotColData.html" class="external-link">plotColData</a></span><span class="op">(</span><span class="va">sce</span>, <span class="st">"detected"</span>, <span class="st">"sum"</span>, colour_by <span class="op">=</span> <span class="st">"doublet"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="eda_qc_files/figure-html/unnamed-chunk-26-2.png" width="700"></p>
 <p>In this case, we only have a few doublets at the periphery of some
@@ -778,9 +803,9 @@ may be safer to discard them to avoid biases in downstream analysis
 <div class="section level2">
 <h2 id="session-info">Session Info<a class="anchor" aria-label="anchor" href="#session-info"></a>
 </h2>
-<div class="sourceCode" id="cb74"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb99"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/sessionInfo.html" class="external-link">sessionInfo</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## R version 4.3.2 (2023-10-31)</span></span>
+<pre><code><span><span class="co">## R version 4.3.1 (2023-06-16)</span></span>
 <span><span class="co">## Platform: x86_64-pc-linux-gnu (64-bit)</span></span>
 <span><span class="co">## Running under: Ubuntu 22.04.3 LTS</span></span>
 <span><span class="co">## </span></span>
@@ -815,15 +840,15 @@ may be safer to discard them to avoid biases in downstream analysis
 <span><span class="co">## [17] GenomicRanges_1.54.1         GenomeInfoDb_1.38.0         </span></span>
 <span><span class="co">## [19] IRanges_2.36.0               S4Vectors_0.40.1            </span></span>
 <span><span class="co">## [21] BiocGenerics_0.48.1          MatrixGenerics_1.14.0       </span></span>
-<span><span class="co">## [23] matrixStats_1.0.0            BiocStyle_2.30.0            </span></span>
+<span><span class="co">## [23] matrixStats_1.1.0            BiocStyle_2.30.0            </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## loaded via a namespace (and not attached):</span></span>
 <span><span class="co">##   [1] later_1.3.1                   BiocIO_1.12.0                </span></span>
 <span><span class="co">##   [3] bitops_1.0-7                  filelock_1.0.2               </span></span>
 <span><span class="co">##   [5] tibble_3.2.1                  R.oo_1.25.0                  </span></span>
-<span><span class="co">##   [7] XML_3.99-0.15                 lifecycle_1.0.3              </span></span>
-<span><span class="co">##   [9] edgeR_4.0.1                   rprojroot_2.0.3              </span></span>
-<span><span class="co">##  [11] MASS_7.3-60                   lattice_0.22-5               </span></span>
+<span><span class="co">##   [7] XML_3.99-0.15                 lifecycle_1.0.4              </span></span>
+<span><span class="co">##   [9] edgeR_4.0.1                   rprojroot_2.0.4              </span></span>
+<span><span class="co">##  [11] MASS_7.3-60                   lattice_0.21-8               </span></span>
 <span><span class="co">##  [13] magrittr_2.0.3                limma_3.58.1                 </span></span>
 <span><span class="co">##  [15] sass_0.4.7                    rmarkdown_2.25               </span></span>
 <span><span class="co">##  [17] jquerylib_0.1.4               yaml_2.3.7                   </span></span>
@@ -842,55 +867,56 @@ may be safer to discard them to avoid biases in downstream analysis
 <span><span class="co">##  [43] viridis_0.6.4                 BiocFileCache_2.10.1         </span></span>
 <span><span class="co">##  [45] GenomicAlignments_1.38.0      jsonlite_1.8.7               </span></span>
 <span><span class="co">##  [47] BiocNeighbors_1.20.0          ellipsis_0.3.2               </span></span>
-<span><span class="co">##  [49] systemfonts_1.0.5             tools_4.3.2                  </span></span>
+<span><span class="co">##  [49] systemfonts_1.0.5             tools_4.3.1                  </span></span>
 <span><span class="co">##  [51] progress_1.2.2                ragg_1.2.6                   </span></span>
 <span><span class="co">##  [53] Rcpp_1.0.11                   glue_1.6.2                   </span></span>
 <span><span class="co">##  [55] gridExtra_2.3                 SparseArray_1.2.0            </span></span>
 <span><span class="co">##  [57] xfun_0.41                     dplyr_1.1.3                  </span></span>
 <span><span class="co">##  [59] HDF5Array_1.30.0              withr_2.5.2                  </span></span>
-<span><span class="co">##  [61] BiocManager_1.30.22           fastmap_1.1.1                </span></span>
-<span><span class="co">##  [63] bluster_1.12.0                rhdf5filters_1.14.0          </span></span>
-<span><span class="co">##  [65] fansi_1.0.5                   digest_0.6.33                </span></span>
-<span><span class="co">##  [67] rsvd_1.0.5                    R6_2.5.1                     </span></span>
-<span><span class="co">##  [69] mime_0.12                     textshaping_0.3.7            </span></span>
-<span><span class="co">##  [71] colorspace_2.1-0              biomaRt_2.58.0               </span></span>
-<span><span class="co">##  [73] RSQLite_2.3.2                 R.methodsS3_1.8.2            </span></span>
-<span><span class="co">##  [75] utf8_1.2.4                    generics_0.1.3               </span></span>
-<span><span class="co">##  [77] data.table_1.14.8             FNN_1.1.3.2                  </span></span>
-<span><span class="co">##  [79] rtracklayer_1.62.0            prettyunits_1.2.0            </span></span>
-<span><span class="co">##  [81] httr_1.4.7                    S4Arrays_1.2.0               </span></span>
-<span><span class="co">##  [83] uwot_0.1.16                   pkgconfig_2.0.3              </span></span>
-<span><span class="co">##  [85] gtable_0.3.4                  blob_1.2.4                   </span></span>
-<span><span class="co">##  [87] XVector_0.42.0                htmltools_0.5.6.1            </span></span>
-<span><span class="co">##  [89] ProtGenerics_1.34.0           scales_1.2.1                 </span></span>
-<span><span class="co">##  [91] png_0.1-8                     knitr_1.45                   </span></span>
-<span><span class="co">##  [93] rjson_0.2.21                  curl_5.1.0                   </span></span>
-<span><span class="co">##  [95] cachem_1.0.8                  rhdf5_2.46.0                 </span></span>
-<span><span class="co">##  [97] stringr_1.5.0                 BiocVersion_3.18.0           </span></span>
-<span><span class="co">##  [99] parallel_4.3.2                vipor_0.4.5                  </span></span>
-<span><span class="co">## [101] restfulr_0.0.15               desc_1.4.2                   </span></span>
-<span><span class="co">## [103] pillar_1.9.0                  grid_4.3.2                   </span></span>
-<span><span class="co">## [105] vctrs_0.6.4                   promises_1.2.1               </span></span>
-<span><span class="co">## [107] BiocSingular_1.18.0           dbplyr_2.4.0                 </span></span>
-<span><span class="co">## [109] beachmat_2.18.0               cluster_2.1.4                </span></span>
-<span><span class="co">## [111] xtable_1.8-4                  beeswarm_0.4.0               </span></span>
-<span><span class="co">## [113] evaluate_0.23                 magick_2.8.1                 </span></span>
-<span><span class="co">## [115] cli_3.6.1                     locfit_1.5-9.8               </span></span>
-<span><span class="co">## [117] compiler_4.3.2                Rsamtools_2.18.0             </span></span>
-<span><span class="co">## [119] rlang_1.1.1                   crayon_1.5.2                 </span></span>
-<span><span class="co">## [121] labeling_0.4.3                fs_1.6.3                     </span></span>
-<span><span class="co">## [123] ggbeeswarm_0.7.2              stringi_1.7.12               </span></span>
-<span><span class="co">## [125] viridisLite_0.4.2             BiocParallel_1.36.0          </span></span>
-<span><span class="co">## [127] munsell_0.5.0                 Biostrings_2.70.1            </span></span>
-<span><span class="co">## [129] lazyeval_0.2.2                Matrix_1.6-1.1               </span></span>
-<span><span class="co">## [131] ExperimentHub_2.10.0          hms_1.1.3                    </span></span>
-<span><span class="co">## [133] sparseMatrixStats_1.14.0      bit64_4.0.5                  </span></span>
-<span><span class="co">## [135] Rhdf5lib_1.24.0               KEGGREST_1.42.0              </span></span>
-<span><span class="co">## [137] statmod_1.5.0                 shiny_1.7.5.1                </span></span>
-<span><span class="co">## [139] interactiveDisplayBase_1.40.0 highr_0.10                   </span></span>
-<span><span class="co">## [141] AnnotationHub_3.10.0          igraph_1.5.1                 </span></span>
-<span><span class="co">## [143] memoise_2.0.1                 bslib_0.5.1                  </span></span>
-<span><span class="co">## [145] xgboost_1.7.5.1               bit_4.0.5</span></span></code></pre>
+<span><span class="co">##  [61] formatR_1.14                  BiocManager_1.30.22          </span></span>
+<span><span class="co">##  [63] fastmap_1.1.1                 bluster_1.12.0               </span></span>
+<span><span class="co">##  [65] rhdf5filters_1.14.0           fansi_1.0.5                  </span></span>
+<span><span class="co">##  [67] digest_0.6.33                 rsvd_1.0.5                   </span></span>
+<span><span class="co">##  [69] R6_2.5.1                      mime_0.12                    </span></span>
+<span><span class="co">##  [71] textshaping_0.3.7             colorspace_2.1-0             </span></span>
+<span><span class="co">##  [73] biomaRt_2.58.0                RSQLite_2.3.3                </span></span>
+<span><span class="co">##  [75] R.methodsS3_1.8.2             utf8_1.2.4                   </span></span>
+<span><span class="co">##  [77] generics_0.1.3                data.table_1.14.8            </span></span>
+<span><span class="co">##  [79] FNN_1.1.3.2                   rtracklayer_1.62.0           </span></span>
+<span><span class="co">##  [81] prettyunits_1.2.0             httr_1.4.7                   </span></span>
+<span><span class="co">##  [83] S4Arrays_1.2.0                uwot_0.1.16                  </span></span>
+<span><span class="co">##  [85] pkgconfig_2.0.3               gtable_0.3.4                 </span></span>
+<span><span class="co">##  [87] blob_1.2.4                    XVector_0.42.0               </span></span>
+<span><span class="co">##  [89] htmltools_0.5.7               ProtGenerics_1.34.0          </span></span>
+<span><span class="co">##  [91] scales_1.2.1                  png_0.1-8                    </span></span>
+<span><span class="co">##  [93] knitr_1.45                    rjson_0.2.21                 </span></span>
+<span><span class="co">##  [95] curl_5.1.0                    cachem_1.0.8                 </span></span>
+<span><span class="co">##  [97] rhdf5_2.46.0                  stringr_1.5.1                </span></span>
+<span><span class="co">##  [99] BiocVersion_3.18.0            parallel_4.3.1               </span></span>
+<span><span class="co">## [101] vipor_0.4.5                   restfulr_0.0.15              </span></span>
+<span><span class="co">## [103] desc_1.4.2                    pillar_1.9.0                 </span></span>
+<span><span class="co">## [105] grid_4.3.1                    vctrs_0.6.4                  </span></span>
+<span><span class="co">## [107] promises_1.2.1                BiocSingular_1.18.0          </span></span>
+<span><span class="co">## [109] dbplyr_2.4.0                  beachmat_2.18.0              </span></span>
+<span><span class="co">## [111] cluster_2.1.4                 xtable_1.8-4                 </span></span>
+<span><span class="co">## [113] beeswarm_0.4.0                evaluate_0.23                </span></span>
+<span><span class="co">## [115] magick_2.8.1                  cli_3.6.1                    </span></span>
+<span><span class="co">## [117] locfit_1.5-9.8                compiler_4.3.1               </span></span>
+<span><span class="co">## [119] Rsamtools_2.18.0              rlang_1.1.2                  </span></span>
+<span><span class="co">## [121] crayon_1.5.2                  labeling_0.4.3               </span></span>
+<span><span class="co">## [123] fs_1.6.3                      ggbeeswarm_0.7.2             </span></span>
+<span><span class="co">## [125] stringi_1.8.1                 viridisLite_0.4.2            </span></span>
+<span><span class="co">## [127] BiocParallel_1.36.0           munsell_0.5.0                </span></span>
+<span><span class="co">## [129] Biostrings_2.70.1             lazyeval_0.2.2               </span></span>
+<span><span class="co">## [131] Matrix_1.6-1                  ExperimentHub_2.10.0         </span></span>
+<span><span class="co">## [133] hms_1.1.3                     sparseMatrixStats_1.14.0     </span></span>
+<span><span class="co">## [135] bit64_4.0.5                   Rhdf5lib_1.24.0              </span></span>
+<span><span class="co">## [137] KEGGREST_1.42.0               statmod_1.5.0                </span></span>
+<span><span class="co">## [139] shiny_1.7.5.1                 interactiveDisplayBase_1.40.0</span></span>
+<span><span class="co">## [141] highr_0.10                    AnnotationHub_3.10.0         </span></span>
+<span><span class="co">## [143] igraph_1.5.1                  memoise_2.0.1                </span></span>
+<span><span class="co">## [145] bslib_0.5.1                   xgboost_1.7.5.1              </span></span>
+<span><span class="co">## [147] bit_4.0.5</span></span></code></pre>
 </div>
 <div class="section level2">
 <h2 id="further-reading">Further Reading<a class="anchor" aria-label="anchor" href="#further-reading"></a>
