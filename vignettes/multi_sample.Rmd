@@ -225,6 +225,7 @@ on their known factors (like the tomato injection in this case).
 To do so, we use the MDS plot, which is very close to a PCA representation.
     
 ```{r}
+par(mfrow=c(1,1))
 limma::plotMDS(cpm(y, log=TRUE), 
     col=ifelse(y$samples$tomato, "red", "blue"))
 ```
@@ -254,10 +255,9 @@ Additionally, the Common and Trend BCV are shown in `red` and `blue`.
 plotBCV(y)
 ```
 
-
 We then fit a Quasi-Likelihood (QL) negative binomial generalized linear model for each gene. 
-The `robust=TRUE` parameter avoids distorsions from highly variable clusters.
-The QL method includes an additional dispersion parameter, useful to handle the uncertainty and variability of the per-gene variance, which is not well estimated by the NB dispersions, so the two dispersion types complement each other in the final analysis.
+The `robust=TRUE` parameter avoids distortions from highly variable clusters.
+The QL method includes an additional dispersion parameter, useful to handle the uncertainty and variability of the per-gene variance, which is not well estimated by the NB dispersion, so the two dispersion types complement each other in the final analysis.
 
 ```{r}
 fit <- glmQLFit(y, design, robust=TRUE)
@@ -318,6 +318,43 @@ The performed steps are very similar to the ones for DEGs analysis, but this tim
 we start our analysis on the computed abundances and without normalizing the 
 data with TMM.
 
+
+```{r}
+library(RColorBrewer)
+n <- 68
+qual_col_pals = brewer.pal.info[brewer.pal.info$category == 'qual',]
+col_vector = unlist(mapply(brewer.pal, qual_col_pals$maxcolors, rownames(qual_col_pals)))
+
+abundances <- table(merged$celltype.mapped, merged$sample) 
+abundances <- unclass(abundances) 
+abundances
+
+df <- as.data.frame(abundances)
+df <- cbind(rowSums(df[,c(1, 3, 5)]), rowSums(df[, c(2, 4, 6)]))
+colnames(df) <- c("tomato", "control")
+
+# Create a df for barplot
+ct <- rep(rownames(df), 2)
+cond <- c(rep("tomato", dim(df)[1]), rep("control",dim(df)[1]))
+value <- c(df[,1], df[,2])
+
+df_barplot <- data.frame(ct, cond, value)
+
+
+ggplot(df_barplot, aes(x=reorder(ct, -value), y=value, fill=cond))+ 
+  geom_bar(width=.5, stat='identity', position=position_dodge(.7)) + 
+    theme_classic() +theme(axis.text.x = element_text(angle = 75, vjust = 1, hjust=1))+
+    labs(y="#Cells", x="")
+
+# Barplot
+ggplot(df_barplot, aes(y=value, x=cond, fill=ct, color=ct)) + 
+  geom_bar(position="fill", stat="identity") + 
+  scale_color_manual(values=col_vector)+
+  scale_fill_manual(values=col_vector) +
+    labs(y="Cell proportion(%)", x="", fill=NULL, color=NULL) +theme_classic() 
+
+```
+
 ```{r}
 library(edgeR)
 abundances <- table(merged$celltype.mapped, merged$sample) 
@@ -325,7 +362,8 @@ abundances <- unclass(abundances)
 # Attaching some column metadata.
 extra.info <- colData(merged)[match(colnames(abundances), merged$sample),]
 y.ab <- DGEList(abundances, samples=extra.info)
-
+keep <- filterByExpr(y.ab, group=extra.info$tomato)
+y.ab <- y.ab[keep,]
 design <- model.matrix(~factor(pool) + factor(tomato), y.ab$samples)
 y.ab <- estimateDisp(y.ab, design, trend="none")
 fit.ab <- glmQLFit(y.ab, design, robust=TRUE, abundance.trend=FALSE)
@@ -351,7 +389,7 @@ The differences in terms of abundance of these cell types are detected between
 the different conditions, but our final interpretation could be biased if we don't
 consider this aspect.
 
-We now look at different approaches for handling the compositional effect.
+We now look at one of the approaches for handling the compositional effect.
 
 ## Assuming most labels do not change
 
@@ -376,21 +414,6 @@ res2 <- glmQLFTest(fit.ab2, coef=ncol(design))
 summary(decideTests(res2))
 topTags(res2, n=10)
 ```
-
-##  Testing against a log-fold change threshold
-
-This other approach assumes that the composition bias introduces a spurious log2-fold change of no more than a \tau quantity for a non-DA label. 
-In other words, we interpret this as the maximum log-fold change in the total number of cells given by DA in other labels.
-On the other hand, when choosing \tau, we should not consider fold-differences in the totals due to differences in capture efficiency or the size of the original cell population are not attributable to composition bias.
-We then mitigate the effect of composition biases by testing each label for changes in abundance beyond \tau.
-
-```{r}
-res.lfc <- glmTreat(fit.ab, coef=ncol(design), lfc=1)
-summary(decideTests(res.lfc))
-topTags(res.lfc)
-```
-
-Addionally, the choice of \tau can be guided by other external experimental data, like a previous or a pilot experiment.
 
 # Session Info
 
