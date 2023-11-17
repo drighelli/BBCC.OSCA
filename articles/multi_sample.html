@@ -404,7 +404,8 @@ on their known factors (like the tomato injection in this case).</p>
 <p>To do so, we use the MDS plot, which is very close to a PCA
 representation.</p>
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">limma</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/limma/man/plotMDS.html" class="external-link">plotMDS</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/edgeR/man/cpm.html" class="external-link">cpm</a></span><span class="op">(</span><span class="va">y</span>, log<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span>, </span>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mfrow<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu">limma</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/limma/man/plotMDS.html" class="external-link">plotMDS</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/edgeR/man/cpm.html" class="external-link">cpm</a></span><span class="op">(</span><span class="va">y</span>, log<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span>, </span>
 <span>    col<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/ifelse.html" class="external-link">ifelse</a></span><span class="op">(</span><span class="va">y</span><span class="op">$</span><span class="va">samples</span><span class="op">$</span><span class="va">tomato</span>, <span class="st">"red"</span>, <span class="st">"blue"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="multi_sample_files/figure-html/unnamed-chunk-10-1.png" width="700"></p>
 <p>We then construct a design matrix by including both the pool and the
@@ -445,10 +446,10 @@ gene. Additionally, the Common and Trend BCV are shown in
 <p><img src="multi_sample_files/figure-html/unnamed-chunk-13-1.png" width="700"></p>
 <p>We then fit a Quasi-Likelihood (QL) negative binomial generalized
 linear model for each gene. The <code>robust=TRUE</code> parameter
-avoids distorsions from highly variable clusters. The QL method includes
+avoids distortions from highly variable clusters. The QL method includes
 an additional dispersion parameter, useful to handle the uncertainty and
 variability of the per-gene variance, which is not well estimated by the
-NB dispersions, so the two dispersion types complement each other in the
+NB dispersion, so the two dispersion types complement each other in the
 final analysis.</p>
 <div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/edgeR/man/glmQLFTest.html" class="external-link">glmQLFit</a></span><span class="op">(</span><span class="va">y</span>, <span class="va">design</span>, robust<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
@@ -540,13 +541,85 @@ catch differences between the injected cells and the background.</p>
 but this time we start our analysis on the computed abundances and
 without normalizing the data with TMM.</p>
 <div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">RColorBrewer</span><span class="op">)</span></span>
+<span><span class="va">n</span> <span class="op">&lt;-</span> <span class="fl">68</span></span>
+<span><span class="va">qual_col_pals</span> <span class="op">=</span> <span class="va">brewer.pal.info</span><span class="op">[</span><span class="va">brewer.pal.info</span><span class="op">$</span><span class="va">category</span> <span class="op">==</span> <span class="st">'qual'</span>,<span class="op">]</span></span>
+<span><span class="va">col_vector</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/unlist.html" class="external-link">unlist</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/mapply.html" class="external-link">mapply</a></span><span class="op">(</span><span class="va">brewer.pal</span>, <span class="va">qual_col_pals</span><span class="op">$</span><span class="va">maxcolors</span>, <span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/row_colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">qual_col_pals</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">abundances</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/table.html" class="external-link">table</a></span><span class="op">(</span><span class="va">merged</span><span class="op">$</span><span class="va">celltype.mapped</span>, <span class="va">merged</span><span class="op">$</span><span class="va">sample</span><span class="op">)</span> </span>
+<span><span class="va">abundances</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/class.html" class="external-link">unclass</a></span><span class="op">(</span><span class="va">abundances</span><span class="op">)</span> </span>
+<span><span class="va">abundances</span></span></code></pre></div>
+<pre><code><span><span class="co">##                                 </span></span>
+<span><span class="co">##                                    5  6   7   8   9  10</span></span>
+<span><span class="co">##   Allantois                       52  7  69  64 154 134</span></span>
+<span><span class="co">##   Blood progenitors 1              4  1   8   2   3   9</span></span>
+<span><span class="co">##   Blood progenitors 2             20  4  13   9  21  52</span></span>
+<span><span class="co">##   Cardiomyocytes                  41 13  44  15  96 101</span></span>
+<span><span class="co">##   Caudal epiblast                  2  0   0   0   8  18</span></span>
+<span><span class="co">##   Caudal Mesoderm                  4  4   6   3   4  10</span></span>
+<span><span class="co">##   Caudal neurectoderm              0  1   0   0   2   7</span></span>
+<span><span class="co">##   Def. endoderm                    5  2   7   5  14  11</span></span>
+<span><span class="co">##   Endothelium                     33  7  21  14  50  32</span></span>
+<span><span class="co">##   Erythroid1                      19  5  61  48  27  45</span></span>
+<span><span class="co">##   Erythroid2                      34 14 127 200  58 112</span></span>
+<span><span class="co">##   Erythroid3                     117 83 151 380 290 551</span></span>
+<span><span class="co">##   ExE ectoderm                     1  2   0  37   0  35</span></span>
+<span><span class="co">##   ExE endoderm                     0  1   0   1   0   3</span></span>
+<span><span class="co">##   ExE mesoderm                    62 23 102  75  93 155</span></span>
+<span><span class="co">##   Forebrain/Midbrain/Hindbrain   130 78  96  84 171 351</span></span>
+<span><span class="co">##   Gut                             25 29  48  40  98 113</span></span>
+<span><span class="co">##   Haematoendothelial progenitors  37 10  40  47  81  68</span></span>
+<span><span class="co">##   Intermediate mesoderm           31  7  28  26  28  87</span></span>
+<span><span class="co">##   Mesenchyme                     151 28 127  75 239 146</span></span>
+<span><span class="co">##   Mixed mesoderm                   0  0   0   0   1   2</span></span>
+<span><span class="co">##   Neural crest                    12 12  37  36  41 178</span></span>
+<span><span class="co">##   NMP                             63 30  40  34  37  92</span></span>
+<span><span class="co">##   Notochord                        0  0   0   2   2   2</span></span>
+<span><span class="co">##   Paraxial mesoderm               77 39  70  52  80 220</span></span>
+<span><span class="co">##   Parietal endoderm                0  2   0  29   0   3</span></span>
+<span><span class="co">##   PGC                              0  1   5   3   2   6</span></span>
+<span><span class="co">##   Pharyngeal mesoderm             58 16  84  76 136 169</span></span>
+<span><span class="co">##   Rostral neurectoderm            18  9   5   5  31  45</span></span>
+<span><span class="co">##   Somitic mesoderm                46 19  21  12  14  56</span></span>
+<span><span class="co">##   Spinal cord                     48 38  45  23  65 115</span></span>
+<span><span class="co">##   Stripped                        13  8   2   0   1   3</span></span>
+<span><span class="co">##   Surface ectoderm                45 19 113  55 178 268</span></span>
+<span><span class="co">##   Visceral endoderm                1  1   0   0   3   1</span></span></code></pre>
+<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="va">abundances</span><span class="op">)</span></span>
+<span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/colSums.html" class="external-link">rowSums</a></span><span class="op">(</span><span class="va">df</span><span class="op">[</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">3</span>, <span class="fl">5</span><span class="op">)</span><span class="op">]</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/colSums.html" class="external-link">rowSums</a></span><span class="op">(</span><span class="va">df</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">4</span>, <span class="fl">6</span><span class="op">)</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/row_colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"tomato"</span>, <span class="st">"control"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Create a df for barplot</span></span>
+<span><span class="va">ct</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/row_colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span>, <span class="fl">2</span><span class="op">)</span></span>
+<span><span class="va">cond</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="st">"tomato"</span>, <span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="st">"control"</span>,<span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">value</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">df</span><span class="op">[</span>,<span class="fl">1</span><span class="op">]</span>, <span class="va">df</span><span class="op">[</span>,<span class="fl">2</span><span class="op">]</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">df_barplot</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span><span class="va">ct</span>, <span class="va">cond</span>, <span class="va">value</span><span class="op">)</span></span>
+<span></span>
+<span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">df_barplot</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/stats/reorder.factor.html" class="external-link">reorder</a></span><span class="op">(</span><span class="va">ct</span>, <span class="op">-</span><span class="va">value</span><span class="op">)</span>, y<span class="op">=</span><span class="va">value</span>, fill<span class="op">=</span><span class="va">cond</span><span class="op">)</span><span class="op">)</span><span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html" class="external-link">geom_bar</a></span><span class="op">(</span>width<span class="op">=</span><span class="fl">.5</span>, stat<span class="op">=</span><span class="st">'identity'</span>, position<span class="op">=</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_dodge.html" class="external-link">position_dodge</a></span><span class="op">(</span><span class="fl">.7</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_classic</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>axis.text.x <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_text</a></span><span class="op">(</span>angle <span class="op">=</span> <span class="fl">75</span>, vjust <span class="op">=</span> <span class="fl">1</span>, hjust<span class="op">=</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span><span class="op">+</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>y<span class="op">=</span><span class="st">"#Cells"</span>, x<span class="op">=</span><span class="st">""</span><span class="op">)</span></span></code></pre></div>
+<p><img src="multi_sample_files/figure-html/unnamed-chunk-19-1.png" width="700"></p>
+<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Barplot</span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">df_barplot</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>y<span class="op">=</span><span class="va">value</span>, x<span class="op">=</span><span class="va">cond</span>, fill<span class="op">=</span><span class="va">ct</span>, color<span class="op">=</span><span class="va">ct</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html" class="external-link">geom_bar</a></span><span class="op">(</span>position<span class="op">=</span><span class="st">"fill"</span>, stat<span class="op">=</span><span class="st">"identity"</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html" class="external-link">scale_color_manual</a></span><span class="op">(</span>values<span class="op">=</span><span class="va">col_vector</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html" class="external-link">scale_fill_manual</a></span><span class="op">(</span>values<span class="op">=</span><span class="va">col_vector</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>y<span class="op">=</span><span class="st">"Cell proportion(%)"</span>, x<span class="op">=</span><span class="st">""</span>, fill<span class="op">=</span><span class="cn">NULL</span>, color<span class="op">=</span><span class="cn">NULL</span><span class="op">)</span> <span class="op">+</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_classic</a></span><span class="op">(</span><span class="op">)</span> </span></code></pre></div>
+<p><img src="multi_sample_files/figure-html/unnamed-chunk-19-2.png" width="700"></p>
+<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://bioinf.wehi.edu.au/edgeR/" class="external-link">edgeR</a></span><span class="op">)</span></span>
 <span><span class="va">abundances</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/table.html" class="external-link">table</a></span><span class="op">(</span><span class="va">merged</span><span class="op">$</span><span class="va">celltype.mapped</span>, <span class="va">merged</span><span class="op">$</span><span class="va">sample</span><span class="op">)</span> </span>
 <span><span class="va">abundances</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/class.html" class="external-link">unclass</a></span><span class="op">(</span><span class="va">abundances</span><span class="op">)</span> </span>
 <span><span class="co"># Attaching some column metadata.</span></span>
 <span><span class="va">extra.info</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html" class="external-link">colData</a></span><span class="op">(</span><span class="va">merged</span><span class="op">)</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/match.html" class="external-link">match</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/row_colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">abundances</span><span class="op">)</span>, <span class="va">merged</span><span class="op">$</span><span class="va">sample</span><span class="op">)</span>,<span class="op">]</span></span>
 <span><span class="va">y.ab</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/edgeR/man/DGEList.html" class="external-link">DGEList</a></span><span class="op">(</span><span class="va">abundances</span>, samples<span class="op">=</span><span class="va">extra.info</span><span class="op">)</span></span>
-<span></span>
+<span><span class="va">keep</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/edgeR/man/filterByExpr.html" class="external-link">filterByExpr</a></span><span class="op">(</span><span class="va">y.ab</span>, group<span class="op">=</span><span class="va">extra.info</span><span class="op">$</span><span class="va">tomato</span><span class="op">)</span></span>
+<span><span class="va">y.ab</span> <span class="op">&lt;-</span> <span class="va">y.ab</span><span class="op">[</span><span class="va">keep</span>,<span class="op">]</span></span>
 <span><span class="va">design</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/model.matrix.html" class="external-link">model.matrix</a></span><span class="op">(</span><span class="op">~</span><span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">pool</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">tomato</span><span class="op">)</span>, <span class="va">y.ab</span><span class="op">$</span><span class="va">samples</span><span class="op">)</span></span>
 <span><span class="va">y.ab</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/edgeR/man/estimateDisp.html" class="external-link">estimateDisp</a></span><span class="op">(</span><span class="va">y.ab</span>, <span class="va">design</span>, trend<span class="op">=</span><span class="st">"none"</span><span class="op">)</span></span>
 <span><span class="va">fit.ab</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/edgeR/man/glmQLFTest.html" class="external-link">glmQLFit</a></span><span class="op">(</span><span class="va">y.ab</span>, <span class="va">design</span>, robust<span class="op">=</span><span class="cn">TRUE</span>, abundance.trend<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
@@ -569,7 +642,7 @@ cells present in the experiment, while another just the 3%. The
 differences in terms of abundance of these cell types are detected
 between the different conditions, but our final interpretation could be
 biased if we don’t consider this aspect.</p>
-<p>We now look at different approaches for handling the compositional
+<p>We now look at one of the approaches for handling the compositional
 effect.</p>
 </div>
 <div class="section level3">
@@ -581,81 +654,45 @@ low number of DEGs resulted from the previous analysis.</p>
 <p>To do so, we first normalize the data with
 <code>calcNormFactors</code> and then we fit and estimate a QL-model for
 our abundance data.</p>
-<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">y.ab2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/edgeR/man/calcNormFactors.html" class="external-link">calcNormFactors</a></span><span class="op">(</span><span class="va">y.ab</span><span class="op">)</span></span>
 <span><span class="va">y.ab2</span><span class="op">$</span><span class="va">samples</span><span class="op">$</span><span class="va">norm.factors</span></span></code></pre></div>
-<pre><code><span><span class="co">## [1] 1.1029040 1.0228173 1.0695358 0.7686501 1.0402941 1.0365354</span></span></code></pre>
+<pre><code><span><span class="co">## [1] 1.1510286 0.9866729 1.1042093 0.7722489 1.0457096 0.9874631</span></span></code></pre>
 <p>We then follow the already seen edgeR analysis steps.</p>
-<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">y.ab2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/edgeR/man/estimateDisp.html" class="external-link">estimateDisp</a></span><span class="op">(</span><span class="va">y.ab2</span>, <span class="va">design</span>, trend<span class="op">=</span><span class="st">"none"</span><span class="op">)</span></span>
 <span><span class="va">fit.ab2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/edgeR/man/glmQLFTest.html" class="external-link">glmQLFit</a></span><span class="op">(</span><span class="va">y.ab2</span>, <span class="va">design</span>, robust<span class="op">=</span><span class="cn">TRUE</span>, abundance.trend<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span>
 <span><span class="va">res2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/edgeR/man/glmQLFTest.html" class="external-link">glmQLFTest</a></span><span class="op">(</span><span class="va">fit.ab2</span>, coef<span class="op">=</span><span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/nrow.html" class="external-link">ncol</a></span><span class="op">(</span><span class="va">design</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/limma/man/decideTests.html" class="external-link">decideTests</a></span><span class="op">(</span><span class="va">res2</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##        factor(tomato)TRUE</span></span>
-<span><span class="co">## Down                    2</span></span>
-<span><span class="co">## NotSig                 32</span></span>
-<span><span class="co">## Up                      0</span></span></code></pre>
-<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/edgeR/man/topTags.html" class="external-link">topTags</a></span><span class="op">(</span><span class="va">res2</span>, n<span class="op">=</span><span class="fl">10</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Coefficient:  factor(tomato)TRUE </span></span>
-<span><span class="co">##                        logFC   logCPM         F       PValue          FDR</span></span>
-<span><span class="co">## ExE ectoderm      -5.7452733 13.13490 37.367234 5.393309e-08 1.833725e-06</span></span>
-<span><span class="co">## Parietal endoderm -6.9016375 12.36649 25.884039 3.062123e-06 5.205609e-05</span></span>
-<span><span class="co">## Mesenchyme         0.9656118 16.32654  6.139328 1.570983e-02 1.495573e-01</span></span>
-<span><span class="co">## Erythroid3        -0.9192068 17.34677  5.921070 1.759497e-02 1.495573e-01</span></span>
-<span><span class="co">## Neural crest      -1.0200609 14.83912  5.276218 2.470370e-02 1.679851e-01</span></span>
-<span><span class="co">## ExE endoderm      -3.9992127 10.75172  4.673383 3.415631e-02 1.935524e-01</span></span>
-<span><span class="co">## Endothelium        0.8666732 14.12195  3.307087 7.338557e-02 3.564442e-01</span></span>
-<span><span class="co">## Cardiomyocytes     0.6956771 14.93321  2.592279 1.120186e-01 4.760789e-01</span></span>
-<span><span class="co">## Allantois          0.6001360 15.54924  2.085500 1.532954e-01 5.791158e-01</span></span>
-<span><span class="co">## Erythroid2        -0.5177901 15.97357  1.614924 2.081314e-01 7.076469e-01</span></span></code></pre>
-</div>
-<div class="section level3">
-<h3 id="testing-against-a-log-fold-change-threshold">Testing against a log-fold change threshold<a class="anchor" aria-label="anchor" href="#testing-against-a-log-fold-change-threshold"></a>
-</h3>
-<p>This other approach assumes that the composition bias introduces a
-spurious log2-fold change of no more than a quantity for a non-DA label.
-In other words, we interpret this as the maximum log-fold change in the
-total number of cells given by DA in other labels. On the other hand,
-when choosing , we should not consider fold-differences in the totals
-due to differences in capture efficiency or the size of the original
-cell population are not attributable to composition bias. We then
-mitigate the effect of composition biases by testing each label for
-changes in abundance beyond .</p>
-<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">res.lfc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/edgeR/man/glmTreat.html" class="external-link">glmTreat</a></span><span class="op">(</span><span class="va">fit.ab</span>, coef<span class="op">=</span><span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/nrow.html" class="external-link">ncol</a></span><span class="op">(</span><span class="va">design</span><span class="op">)</span>, lfc<span class="op">=</span><span class="fl">1</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/limma/man/decideTests.html" class="external-link">decideTests</a></span><span class="op">(</span><span class="va">res.lfc</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">##        factor(tomato)TRUE</span></span>
-<span><span class="co">## Down                    2</span></span>
-<span><span class="co">## NotSig                 32</span></span>
+<span><span class="co">## Down                    0</span></span>
+<span><span class="co">## NotSig                 21</span></span>
 <span><span class="co">## Up                      0</span></span></code></pre>
 <div class="sourceCode" id="cb47"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/edgeR/man/topTags.html" class="external-link">topTags</a></span><span class="op">(</span><span class="va">res.lfc</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/edgeR/man/topTags.html" class="external-link">topTags</a></span><span class="op">(</span><span class="va">res2</span>, n<span class="op">=</span><span class="fl">10</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Coefficient:  factor(tomato)TRUE </span></span>
-<span><span class="co">##                          logFC unshrunk.logFC   logCPM       PValue</span></span>
-<span><span class="co">## ExE ectoderm        -5.4835385     -5.9123463 13.06465 4.691927e-06</span></span>
-<span><span class="co">## Parietal endoderm   -6.5773855    -27.4596643 12.30091 8.041229e-05</span></span>
-<span><span class="co">## ExE endoderm        -3.9301490    -23.9290916 10.76159 5.050518e-02</span></span>
-<span><span class="co">## Mesenchyme           1.1597987      1.1610214 16.35239 1.509665e-01</span></span>
-<span><span class="co">## Endothelium          1.0396400      1.0450849 14.14422 2.268038e-01</span></span>
-<span><span class="co">## Caudal neurectoderm -1.4805723     -1.6367540 11.09613 2.934582e-01</span></span>
-<span><span class="co">## Cardiomyocytes       0.8713101      0.8740177 14.96579 3.377083e-01</span></span>
-<span><span class="co">## Neural crest        -0.8238482     -0.8264411 14.83184 3.713878e-01</span></span>
-<span><span class="co">## Allantois            0.8033893      0.8048744 15.54528 3.952001e-01</span></span>
-<span><span class="co">## Def. endoderm        0.7098640      0.7228811 12.50001 4.365468e-01</span></span>
-<span><span class="co">##                              FDR</span></span>
-<span><span class="co">## ExE ectoderm        0.0001595255</span></span>
-<span><span class="co">## Parietal endoderm   0.0013670090</span></span>
-<span><span class="co">## ExE endoderm        0.5723920586</span></span>
-<span><span class="co">## Mesenchyme          0.9906682053</span></span>
-<span><span class="co">## Endothelium         0.9906682053</span></span>
-<span><span class="co">## Caudal neurectoderm 0.9906682053</span></span>
-<span><span class="co">## Cardiomyocytes      0.9906682053</span></span>
-<span><span class="co">## Neural crest        0.9906682053</span></span>
-<span><span class="co">## Allantois           0.9906682053</span></span>
-<span><span class="co">## Def. endoderm       0.9906682053</span></span></code></pre>
-<p>Addionally, the choice of can be guided by other external
-experimental data, like a previous or a pilot experiment.</p>
+<span><span class="co">##                                   logFC   logCPM        F      PValue</span></span>
+<span><span class="co">## Erythroid3                   -0.9956036 17.35279 8.611516 0.005394638</span></span>
+<span><span class="co">## Neural crest                 -1.0917248 14.85476 7.461485 0.009177889</span></span>
+<span><span class="co">## Mesenchyme                    0.8901738 16.31463 6.479534 0.014672428</span></span>
+<span><span class="co">## Endothelium                   0.7921383 14.11509 3.411336 0.071803077</span></span>
+<span><span class="co">## Erythroid2                   -0.5895162 15.96667 2.591693 0.114916989</span></span>
+<span><span class="co">## Cardiomyocytes                0.6200248 14.93268 2.545840 0.118083259</span></span>
+<span><span class="co">## Allantois                     0.5277110 15.54533 1.997632 0.164914229</span></span>
+<span><span class="co">## Forebrain/Midbrain/Hindbrain -0.4508956 16.56015 1.769367 0.190638748</span></span>
+<span><span class="co">## Paraxial mesoderm            -0.4472657 15.77907 1.591961 0.214008619</span></span>
+<span><span class="co">## NMP                          -0.4256713 15.07249 1.306089 0.259577002</span></span>
+<span><span class="co">##                                     FDR</span></span>
+<span><span class="co">## Erythroid3                   0.09636783</span></span>
+<span><span class="co">## Neural crest                 0.09636783</span></span>
+<span><span class="co">## Mesenchyme                   0.10270700</span></span>
+<span><span class="co">## Endothelium                  0.37696616</span></span>
+<span><span class="co">## Erythroid2                   0.41329141</span></span>
+<span><span class="co">## Cardiomyocytes               0.41329141</span></span>
+<span><span class="co">## Allantois                    0.49474269</span></span>
+<span><span class="co">## Forebrain/Midbrain/Hindbrain 0.49935344</span></span>
+<span><span class="co">## Paraxial mesoderm            0.49935344</span></span>
+<span><span class="co">## NMP                          0.54511170</span></span></code></pre>
 </div>
 </div>
 <div class="section level2">
@@ -687,16 +724,17 @@ experimental data, like a previous or a pilot experiment.</p>
 <span><span class="co">## [8] base     </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## other attached packages:</span></span>
-<span><span class="co">##  [1] edgeR_4.0.1                  limma_3.58.1                </span></span>
-<span><span class="co">##  [3] batchelor_1.18.0             scran_1.30.0                </span></span>
-<span><span class="co">##  [5] scater_1.30.0                ggplot2_3.4.4               </span></span>
-<span><span class="co">##  [7] scuttle_1.12.0               MouseGastrulationData_1.16.0</span></span>
-<span><span class="co">##  [9] SpatialExperiment_1.12.0     SingleCellExperiment_1.24.0 </span></span>
-<span><span class="co">## [11] SummarizedExperiment_1.32.0  Biobase_2.62.0              </span></span>
-<span><span class="co">## [13] GenomicRanges_1.54.1         GenomeInfoDb_1.38.0         </span></span>
-<span><span class="co">## [15] IRanges_2.36.0               S4Vectors_0.40.1            </span></span>
-<span><span class="co">## [17] BiocGenerics_0.48.1          MatrixGenerics_1.14.0       </span></span>
-<span><span class="co">## [19] matrixStats_1.1.0            BiocStyle_2.30.0            </span></span>
+<span><span class="co">##  [1] RColorBrewer_1.1-3           edgeR_4.0.1                 </span></span>
+<span><span class="co">##  [3] limma_3.58.1                 batchelor_1.18.0            </span></span>
+<span><span class="co">##  [5] scran_1.30.0                 scater_1.30.0               </span></span>
+<span><span class="co">##  [7] ggplot2_3.4.4                scuttle_1.12.0              </span></span>
+<span><span class="co">##  [9] MouseGastrulationData_1.16.0 SpatialExperiment_1.12.0    </span></span>
+<span><span class="co">## [11] SingleCellExperiment_1.24.0  SummarizedExperiment_1.32.0 </span></span>
+<span><span class="co">## [13] Biobase_2.62.0               GenomicRanges_1.54.1        </span></span>
+<span><span class="co">## [15] GenomeInfoDb_1.38.0          IRanges_2.36.0              </span></span>
+<span><span class="co">## [17] S4Vectors_0.40.1             BiocGenerics_0.48.1         </span></span>
+<span><span class="co">## [19] MatrixGenerics_1.14.0        matrixStats_1.1.0           </span></span>
+<span><span class="co">## [21] BiocStyle_2.30.0            </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## loaded via a namespace (and not attached):</span></span>
 <span><span class="co">##   [1] jsonlite_1.8.7                magrittr_2.0.3               </span></span>
