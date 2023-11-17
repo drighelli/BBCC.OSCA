@@ -54,7 +54,7 @@ jobs:
         run: |
           BiocManager::repositories(version="3.17")
           remotes::install_deps(dependencies = TRUE, repos = BiocManager::repositories(version="3.17"))
-          BiocManager::install(ask = FALSE, update = TRUE, version="3.17")
+          BiocManager::install(ask = FALSE, update = FALSE, version="3.17")
         shell: Rscript {0}
 
       - name: Check
