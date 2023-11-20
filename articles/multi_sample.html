@@ -437,12 +437,6 @@ parameter, to model the mean-variance trend.</p>
 <span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">y</span><span class="op">$</span><span class="va">trended.dispersion</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##     Min.  1st Qu.   Median     Mean  3rd Qu.     Max. </span></span>
 <span><span class="co">## 0.009325 0.016271 0.024233 0.021603 0.026868 0.027993</span></span></code></pre>
-<!-- The BCV plot allows us to investigate the relation between the Biological Coefficient -->
-<!-- of Variation and the Average log CPM for each gene. -->
-<!-- Additionally, the Common and Trend BCV are shown in `red` and `blue`. -->
-<!-- ```{r} -->
-<!-- plotBCV(y) -->
-<!-- ``` -->
 <p>We then fit a Quasi-Likelihood (QL) negative binomial generalized
 linear model for each gene. The <code>robust=TRUE</code> parameter
 avoids distortions from highly variable clusters. The QL method includes
@@ -459,10 +453,6 @@ final analysis.</p>
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">fit</span><span class="op">$</span><span class="va">df.prior</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. </span></span>
 <span><span class="co">##   0.323   8.177   8.177   8.111   8.177   8.177</span></span></code></pre>
-<!-- QL dispersion estimates for each gene as a function of abundance. Raw estimates (black) are shrunk towards the trend (blue) to yield squeezed estimates (red). -->
-<!-- ```{r} -->
-<!-- plotQLDisp(fit) -->
-<!-- ``` -->
 <p>We then use an empirical Bayes quasi-likelihood F-test to test for
 differential expression (due to tomato injection) per each gene at a
 False Discovery Rate (FDR) of 5%. The low amount of DGEs highlights that
