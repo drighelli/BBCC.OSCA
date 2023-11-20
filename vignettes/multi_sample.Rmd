@@ -247,13 +247,13 @@ y <- estimateDisp(y, design)
 summary(y$trended.dispersion)
 ```
 
-The BCV plot allows us to investigate the relation between the Biological Coefficient
-of Variation and the Average log CPM for each gene.
-Additionally, the Common and Trend BCV are shown in `red` and `blue`.
+<!-- The BCV plot allows us to investigate the relation between the Biological Coefficient -->
+<!-- of Variation and the Average log CPM for each gene. -->
+<!-- Additionally, the Common and Trend BCV are shown in `red` and `blue`. -->
 
-```{r}
-plotBCV(y)
-```
+<!-- ```{r} -->
+<!-- plotBCV(y) -->
+<!-- ``` -->
 
 We then fit a Quasi-Likelihood (QL) negative binomial generalized linear model for each gene. 
 The `robust=TRUE` parameter avoids distortions from highly variable clusters.
@@ -265,11 +265,11 @@ summary(fit$var.prior)
 summary(fit$df.prior)
 ```
 
-QL dispersion estimates for each gene as a function of abundance. Raw estimates (black) are shrunk towards the trend (blue) to yield squeezed estimates (red).
+<!-- QL dispersion estimates for each gene as a function of abundance. Raw estimates (black) are shrunk towards the trend (blue) to yield squeezed estimates (red). -->
 
-```{r}
-plotQLDisp(fit)
-```
+<!-- ```{r} -->
+<!-- plotQLDisp(fit) -->
+<!-- ``` -->
 
 We then use an empirical Bayes quasi-likelihood F-test to test for differential expression (due to tomato injection) per each gene at a False Discovery Rate (FDR) of 5%.
 The low amount of DGEs highlights that the tomato injection effect has a low 

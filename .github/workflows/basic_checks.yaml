@@ -149,7 +149,5 @@ jobs:
           context: .
           push: ${{ github.event_name != 'pull_request' }}
           tags: |
-            ${{ env.REGISTRY }}/${{ env.IMAGE }}:latest
-            ${{ env.REGISTRY }}/${{ env.IMAGE }}:${{ env.GIT_SHA }}
-            docker.io/${{ env.IMAGE }}:latest
-            docker.io/${{ env.IMAGE }}:${{ env.GIT_SHA }}
+            ${{ env.IMAGE }}:latest
+            ${{ env.IMAGE }}:${{ env.GIT_SHA }}
