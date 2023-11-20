@@ -48,8 +48,10 @@ In particular, participants will learn:
 | Introduction to Bioconductor and the SingleCellExperiment class | 9:30-10:00   |
 | Exploratory Data Analysis and Quality Control (EDA/QC)          | 10:00-10:45  |
 | Coffee break                                                    | 10:45-11:00  |
-| Clustering and cell type annotation                             | 11:00-12:00  |
-| Multi-sample analyses                                           | 12:00-13:30  |
+| Clustering and cell type annotation                             | 11:00-11:45  |
+| Q&A session                                                     | 11:45-12:00  |
+| Multi-sample analyses                                           | 12:00-12:45  |
+| Q&A + Discussion session                                        | 12:45-13:30  |
 | Lunch                                                           | 13:30        |
 
 ## Docker container
