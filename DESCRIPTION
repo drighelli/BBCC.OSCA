@@ -34,7 +34,6 @@ Imports:
     gridExtra,
     pheatmap,
     scDblFinder,
-    zellkonverter,
     ggplot2,
     edgeR,
     Matrix (== 1.6-1)
