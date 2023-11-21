@@ -37,7 +37,7 @@ library(BiocStyle)
 
 ```{r setup, message = FALSE}
 library(MouseGastrulationData)
-sce <- WTChimeraData(samples=5:10, type = "processed")
+sce <- WTChimeraData(type = "processed", samples=5:10)
 sce
 colData(sce)
 ```
