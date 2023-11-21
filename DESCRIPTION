@@ -36,7 +36,7 @@ Imports:
     scDblFinder,
     ggplot2,
     edgeR,
-    Matrix (== 1.6-1)
+    Matrix
 Suggests: 
     BiocStyle,
     dplyr,
