@@ -1,6 +1,6 @@
 Package: BBCC.OSCA
 Title: Orchestrating Large-Scale Single-Cell Analysis with Bioconductor
-Version: 0.99.02
+Version: 0.99.03
 Authors@R: 
     c(person("Annamaria", "Carissimo", role = "aut", email="annamaria.carissimo@cnr.it"),
     person("Francesco", "Cecere", role = "ctb",
@@ -46,7 +46,7 @@ Suggests:
     pkgdown
 URL:
     https://drighelli.github.io/BBCC.OSCA/,
-    ghcr.io/drighelli/ismb.osca
+    ghcr.io/drighelli/bbcc.osca
 BugReports: https://github.com/drighelli/BBCC.OSCA/issues/new/choose
 VignetteBuilder: knitr
 DockerImage: ghcr.io/drighelli/ismb.osca:latest
